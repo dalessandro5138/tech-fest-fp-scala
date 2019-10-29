@@ -20,13 +20,5 @@ object RuntimeSafetyExercise {
 
   def averageRef(num: BigDecimal, den: NonZero): BigDecimal =
     num / den.value
-
-  // IO Operations
-  class Task[A](a: => A) { self =>
-    def run(): A = self.a
-  }
-
-  val myProgram = new Task(println("hello"))
-
-  myProgram.run()
+  
 }
