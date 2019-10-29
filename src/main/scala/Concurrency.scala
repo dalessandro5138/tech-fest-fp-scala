@@ -12,11 +12,12 @@ object Concurrency {
 
   val sleepFor7                         = ZIO.sleep(7 seconds)
   val sleepFor1                         = ZIO.sleep(1 second)
+  val sleepFor3                         = ZIO.sleep(3 seconds)
   val execPar: RIO[Clock, (Unit, Unit)] = sleepFor1 zipPar sleepFor7
   new DefaultRuntime {}.unsafeRun(time(execPar))
 
-  val fiveSecondPrograms: List[RIO[Clock, Unit]] = List.fill(100)(ZIO.sleep(5 seconds))
-  val execManyPar                                = ZIO.foreachPar(fiveSecondPrograms)(ZIO.succeed)
+  val things      = List(1, 2, 3, 4, 5, 6, 7)
+  val execManyPar = ZIO.foreachPar(things)(p => sleepFor3)
   new DefaultRuntime {}.unsafeRun(time(execManyPar))
 
 }
